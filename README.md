@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Searching for Celia Website
 
-## Getting Started
+Official website for Searching for Celia, built with Next.js, shadcn, Tailwind CSS, and Framer Motion.
 
-First, run the development server:
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+The app is configured for static export (`out/`) for GitHub Pages.
 
-To learn more about Next.js, take a look at the following resources:
+## Media Workflow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Raw files are not committed directly into public folders.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Add source images to `assets/raw/images`.
+2. Run optimization:
 
-## Deploy on Vercel
+```bash
+npm run media:optimize
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Commit generated files in `public/images`.
+4. For videos, transcode to `.mp4` or `.webm` and place optimized assets in `public/videos`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+CI media checks:
+
+```bash
+npm run media:check
+```
+
+## GitHub Pages Deployment
+
+Deployment is automated with `.github/workflows/deploy.yml`.
+
+- Push to `main`.
+- GitHub Actions runs lint/build and deploys static output.
+- Workflow sets `NEXT_PUBLIC_BASE_PATH` to repo name for project pages.
+
+If using a custom domain, set base path behavior accordingly and configure `CNAME`.
