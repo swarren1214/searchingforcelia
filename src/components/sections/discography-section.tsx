@@ -7,7 +7,7 @@ import { SiApplemusic, SiSpotify } from "react-icons/si";
 import { useEffect, useRef, useState } from "react";
 
 import { whiteFlagAlbum } from "@/content/discography";
-import { cn } from "@/lib/utils";
+import { cn, withBasePath } from "@/lib/utils";
 
 type PlaybackState = {
   trackId: string | null;
@@ -29,7 +29,7 @@ function formatPreviewTime(totalMilliseconds: number) {
 }
 
 function previewPath(fileName: string) {
-  return `/tracks/white_flag/${encodeURIComponent(fileName)}`;
+  return withBasePath(`/tracks/white_flag/${encodeURIComponent(fileName)}`);
 }
 
 export function DiscographySection() {
@@ -179,7 +179,7 @@ export function DiscographySection() {
               >
                 <div className="relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-2xl border border-zinc-700/80 shadow-[0_40px_70px_-30px_rgba(255,255,255,0.22)]">
                   <Image
-                    src={whiteFlagAlbum.artPath}
+                    src={withBasePath(whiteFlagAlbum.artPath)}
                     alt={`${whiteFlagAlbum.title} album art`}
                     fill
                     sizes="(max-width: 1024px) 80vw, 420px"

@@ -6,7 +6,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { galleryPhotos } from "@/content/gallery";
-import { cn } from "@/lib/utils";
+import { cn, withBasePath } from "@/lib/utils";
 
 export function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -52,7 +52,7 @@ export function GallerySection() {
               className="relative h-[480px] w-full sm:h-[560px]"
             >
               <Image
-                src={activePhoto.src}
+                src={withBasePath(activePhoto.src)}
                 alt={activePhoto.alt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 1024px"
@@ -117,7 +117,7 @@ export function GallerySection() {
                   aria-label={`Select photo ${index + 1}`}
                 >
                   <Image
-                    src={photo.src}
+                    src={withBasePath(photo.src)}
                     alt={photo.alt}
                     fill
                     sizes="140px"

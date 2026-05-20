@@ -10,6 +10,7 @@ import { members } from "@/content/members";
 import { featuredVideo, musicLinks } from "@/content/music";
 import { shows } from "@/content/shows";
 import { siteConfig } from "@/content/site-config";
+import { withBasePath } from "@/lib/utils";
 
 export default function Home() {
   const upcomingShows = shows.filter((show) => show.status === "upcoming");
@@ -57,7 +58,7 @@ export default function Home() {
         <div className="glass-panel mx-auto flex max-w-5xl flex-col items-center space-y-7 rounded-2xl p-10 text-center sm:p-14">
           <div className="relative h-48 w-48 overflow-hidden rounded-full border border-zinc-700/70 bg-black/50 p-1 sm:h-56 sm:w-56">
             <Image
-              src="/photos/hero_logo.jpeg"
+              src={withBasePath("/photos/hero_logo.jpeg")}
               alt="Searching for Celia logo"
               fill
               sizes="(max-width: 640px) 192px, 224px"

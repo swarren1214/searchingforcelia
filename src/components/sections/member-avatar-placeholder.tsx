@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { withBasePath } from "@/lib/utils";
+
 type MemberAvatarPlaceholderProps = {
   name: string;
   role: string;
@@ -24,7 +26,7 @@ export function MemberAvatarPlaceholder({ name, role, photo }: MemberAvatarPlace
       <div className="avatar-frame">
         {photo ? (
           <Image
-            src={photo}
+            src={withBasePath(photo)}
             alt={`${name} headshot`}
             fill
             sizes="96px"
