@@ -17,8 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,6 +29,17 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Set base path
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          if [ "$REPO_NAME" = "${GITHUB_REPOSITORY_OWNER}.github.io" ]; then
+            echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
+            echo "Using root base path"
+          else
+            echo "NEXT_PUBLIC_BASE_PATH=/$REPO_NAME" >> "$GITHUB_ENV"
+            echo "Using project base path /$REPO_NAME"
+          fi
 
       - name: Media guard check
         run: npm run media:check
