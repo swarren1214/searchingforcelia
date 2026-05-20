@@ -1,6 +1,9 @@
+import Image from "next/image";
+
 type MemberAvatarPlaceholderProps = {
   name: string;
   role: string;
+  photo?: string;
 };
 
 function getInitials(name: string) {
@@ -12,20 +15,32 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-export function MemberAvatarPlaceholder({ name, role }: MemberAvatarPlaceholderProps) {
+export function MemberAvatarPlaceholder({ name, role, photo }: MemberAvatarPlaceholderProps) {
   const initials = getInitials(name);
 
   return (
     <div className="relative h-24 w-24">
       <div className="avatar-halo" aria-hidden />
       <div className="avatar-frame">
-        <div className="avatar-pattern" aria-hidden />
-        <div className="relative z-10 flex h-full w-full items-center justify-center">
-          <span className="font-display text-3xl text-zinc-100">{initials}</span>
-        </div>
+        {photo ? (
+          <Image
+            src={photo}
+            alt={`${name} headshot`}
+            fill
+            sizes="96px"
+            className="relative z-10 object-cover"
+          />
+        ) : (
+          <>
+            <div className="avatar-pattern" aria-hidden />
+            <div className="relative z-10 flex h-full w-full items-center justify-center">
+              <span className="font-display text-3xl text-zinc-100">{initials}</span>
+            </div>
+          </>
+        )}
       </div>
       <span className="sr-only">
-        Placeholder avatar for {name}, {role}
+        {photo ? `${name} headshot` : `Placeholder avatar for ${name}, ${role}`}
       </span>
     </div>
   );
